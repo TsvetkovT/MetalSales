@@ -1,0 +1,56 @@
+/*
+ * Custom stylesheet for http://----.ca
+ * Initial version on 2016.02.22 intended for the website's temporary page.
+ * Modified on 2016.02.27 to share on bootsnipp.com
+ *
+ * Created by Mathieu Aubin (mathieu@zeroserieux.com)
+ *
+ * Contribute to have your name here, no matter how small of a change.
+ *
+ * Licenced under the WTFPL Version 2 (http://www.wtfpl.net/)
+ *
+ * This program is free software. It comes without any warranty, to
+ * the extent permitted by applicable law. You can redistribute it
+ * and/or modify it under the terms of the Do What The Fuck You Want
+ * To Public License, Version 2, as published by Sam Hocevar. See
+ * http://www.wtfpl.net/ for more details.
+ *
+ */
+
+/* Font-Awesome v4.5.0 - (http://fortawesome.github.io/Font-Awesome/) */
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css") all;
+/* Google-Fonts */
+@import url("https://fonts.googleapis.com/css?family=Buenard:700") all;
+
+body {
+    #padding-top: 250px;
+}
+
+.zsx {
+background-color: rgba(81, 166, 208, 0.86);
+}
+
+.zsx h1, .zsx h3{
+text-align:center;
+color:#fff;
+}
+
+.zsx h1{
+font-size:60px;
+font-family:'Buenard', serif;
+font-weight:bold;
+text-transform:inherit;
+margin: 0px auto 0px;
+text-shadow: 2px 2px 2px #000;
+-webkit-text-shadow: 2px 2px 2px #000;
+-moz-text-shadow: 2px 2px 2px #000;
+}
+
+.zsx h3{
+font-size: 25px;
+font-weight:lighter;
+margin: 0px auto 15px;
+}
+
+
+

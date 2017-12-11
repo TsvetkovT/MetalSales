@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <div class="jumbotron text-center">
+
+            <h1>Категории продукти</h1>
+            <p class="lead">Изберете нашите продукти по категории</p>
+    </div>
+
+    <div class="text-center">
+
+            {% for each in data %}
+
+                <article class="col-sm-6 col-md-4">
+                        <a href="#">
+                          <div class="row">
+                              <div class="boxTile">
+                                <div class="square">
+                                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyJ2AClH1jtyJZfRlUoCC4GC9UJwDy-3411RXMaEgixHyPuNJf">
+                                </div>
+                                <div class="square info easeAni">
+                                  <div class="text">
+{#                                    <p>Category Title</p>#}
+                                    <h3>{{ each['GrupaBG'] }}</h3>
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
+                        </a>
+                </article>
+
+            {% endfor %}
+
+    </div>
+
+
+{% endblock %}
