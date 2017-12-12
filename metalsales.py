@@ -34,7 +34,7 @@ admin = Admin(app)
 class wp_users(db.Model):
     ID = db.Column(db.Integer, primary_key=True)
     user_login = db.Column(db.String(60))
-    user_pass = db.Column(db.String(64))
+    user_pass = db.Column(db.String(300), nullable=False)
     user_nicename = db.Column(db.String(50))
     user_email = db.Column(db.String(100))
     user_url = db.Column(db.String(100))
@@ -42,8 +42,16 @@ class wp_users(db.Model):
     user_activation_key = db.Column(db.String(60))
     user_status = db.Column(db.Integer)
     display_name = db.Column(db.String(250))
-
-
+    #
+    # def __init__(self, user_login, user_pass):
+    #     self.user_login = user_login
+    #     self.user_pass = sha256_crypt.hash(user_pass)
+    #
+    # def validate_password(self, user_pass):
+    #     return sha256_crypt.verify(user_pass, self.user_pass)
+    #
+    # def __repr__(self):
+    #     return "<User('%s','%s')>" % (self.user_login, self.user_pass[:10] + '...')
 
 
 admin.add_view(ModelView(wp_users, db.session))
