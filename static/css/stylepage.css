@@ -53,4 +53,40 @@ margin: 0px auto 15px;
 }
 
 
+/* box configuration with bootstrap: */
 
+.easeAni {	-webkit-transition: all 0.3s ease-in; -moz-transition: all 0.3s ease-in; -o-transition: all 0.3s ease-in; transition: all 0.3s ease-in;}
+
+.boxTile {  background: #333;  height: 0;  padding-bottom: 50%;  position: relative;  width: 100%;}
+.boxTile .square { position: absolute; bottom: 0;  left: 0;  right: 0;  top: 0;}
+.boxTile .square img {  display: block;  height: 100%;  width: 50%;}
+.boxTile .info {  bottom: 0;  left: 50%;  overflow: hidden;  padding: 15px;  position: absolute;  right: 0;  top: 0;}
+.boxTile:hover .info { background: #74be4b;}
+.boxTile .text {  color: #FFFFFF;  max-height: 100%;  overflow: hidden;  width: 100%;}
+.boxTile .text h2 {  color: #FFF;  display: inline-block;  font-size: 130%;  margin: 8px 0; padding-right:1em;}
+.boxTile .text p {  color: #bfd540;  text-transform: uppercase;  white-space: nowrap; font-size: 80%; padding-right:1em;}
+
+
+
+@media (max-width: 768px) {
+
+.boxTile .square img {  display: block;  width: 50% !important;  }
+
+}
+
+@media (min-width: 768px) {
+
+.boxTile .square img {  display: block;  width: 50% !important;  }
+
+}
+
+
+@media (min-width: 1200px) {
+
+.boxTile {  padding-bottom: 100%;  }
+.boxTile .square img {  display: block;  width: 100% !important;  }
+.boxTile .info {  top: 50%;  background: #000; background: rgba(0, 0, 0, 0.6); filter: alpha(opacity=60);}
+
+}
+
+ /* */
