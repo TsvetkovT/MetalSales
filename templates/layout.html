@@ -30,6 +30,6 @@
     <div class="container">
         {% block body %} {% endblock %}
     </div>
-<link rel="script" href="static/js/bootstrap.js">
+<link rel="script" href={{ url_for('static', filename='js/bootstrap.js') }}">
 </body>
 </html>
