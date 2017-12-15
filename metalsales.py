@@ -93,6 +93,12 @@ def products():
     return render_template('categories.html', data = category)
 
 
+#error handler
+
+@app.errorhandler(404)
+def error404(error):
+    return render_template('404.html'), 404
+
 #running app parameters
 if __name__ == '__main__':
 
