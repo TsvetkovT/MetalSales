@@ -16,12 +16,12 @@
                           <div class="row">
                               <div class="boxTile">
                                 <div class="square">
-                                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyJ2AClH1jtyJZfRlUoCC4GC9UJwDy-3411RXMaEgixHyPuNJf">
+                                      <img src={{ each['imgPath'] }}>
                                 </div>
                                 <div class="square info easeAni">
                                   <div class="text">
 {#                                    <p>Category Title</p>#}
-                                    <h3>{{ each['GrupaBG'] }}</h3>
+                                    <h5 class="categories">{{ each['GrupaBG'] }}</h5>
                                   </div>
                                 </div>
                               </div>

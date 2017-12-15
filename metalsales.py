@@ -87,11 +87,17 @@ def products():
     myCursor = mysql.connection.cursor()
 
     # retreiving data from database
-    myCursor.execute('''SELECT GrupaBG FROM trade.wp_grupa''')
+    myCursor.execute('''SELECT * FROM trade.wp_grupa''')
     category = myCursor.fetchall()
 
     return render_template('categories.html', data = category)
 
+
+#error handler
+
+@app.errorhandler(404)
+def error404(error):
+    return render_template('404.html'), 404
 
 #running app parameters
 if __name__ == '__main__':
