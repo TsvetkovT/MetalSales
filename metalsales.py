@@ -4,8 +4,11 @@ from flask_mysqldb import MySQL
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.orm import synonym
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
+from flask_bcrypt import generate_password_hash
 import os
 
 
@@ -26,7 +29,7 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 #Config of flask-admin
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:Bene1979@127.0.0.1/trade'
-app.config['secret key'] = '1q2w3e4r'
+#app.config['secret key'] = '1q2w3e4r'
 db = SQLAlchemy(app)
 
 admin = Admin(app)
@@ -42,19 +45,23 @@ class wp_users(db.Model):
     user_activation_key = db.Column(db.String(60))
     user_status = db.Column(db.Integer)
     display_name = db.Column(db.String(250))
-    #
-    # def __init__(self, user_login, user_pass):
-    #     self.user_login = user_login
-    #     self.user_pass = sha256_crypt.hash(user_pass)
-    #
-    # def validate_password(self, user_pass):
-    #     return sha256_crypt.verify(user_pass, self.user_pass)
-    #
-    # def __repr__(self):
-    #     return "<User('%s','%s')>" % (self.user_login, self.user_pass[:10] + '...')
+
+class users(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_login = db.Column(db.String(60))
+    user_pass = db.Column(db.String(300), nullable=False)
+
+    @hybrid_property
+    def password(self):
+        return self.user_pass;
 
 
-admin.add_view(ModelView(wp_users, db.session))
+    @password.setter
+    def password(self,user_pass):
+        self.user_pass = generate_password_hash(user_pass)
+
+
+admin.add_view(ModelView(users, db.session))
 
 
 
