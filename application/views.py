@@ -6,10 +6,10 @@ from application import app
 @app.route('/login', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
-        #handling login
+        return render_template('login.html')
         pass
     else:
-        #Display login form
+        return render_template('login.html')
         pass
 
 
