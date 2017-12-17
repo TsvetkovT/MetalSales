@@ -1,3 +1,0 @@
-{{ url_for('static', filename='css/stylepage.css') }}
-
-YouTube: creating custom error pages in flask
