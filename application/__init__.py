@@ -5,11 +5,11 @@ from flask_mysqldb import MySQL
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
-from sqlalchemy.ext.hybrid import hybrid_property
+
 from sqlalchemy.orm import synonym
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
-from flask_bcrypt import generate_password_hash
+
 import os
 
 
@@ -39,19 +39,6 @@ db = SQLAlchemy(app)
 # admin = Admin(app)
 
 
-# class users(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     user_login = db.Column(db.String(60))
-#     user_pass = db.Column(db.String(300), nullable=False)
-#
-#     @hybrid_property
-#     def password(self):
-#         return self.user_pass;
-#
-#
-#     @password.setter
-#     def password(self,user_pass):
-#         self.user_pass = generate_password_hash(user_pass)
 
 
 # admin.add_view(ModelView(wp_users, db.session))
