@@ -21,16 +21,16 @@ def index():
 def about():
     return  render_template('about.html')
 
-@app.route('/categories')
-def products():
-    # configure MySQL cursor
-    myCursor = mysql.connection.cursor()
-
-    # retreiving data from database
-    myCursor.execute('''SELECT * FROM trade.wp_grupa''')
-    category = myCursor.fetchall()
-
-    return render_template('categories.html', data = category)
+# @app.route('/categories')
+# def products():
+#     # configure MySQL cursor
+#     myCursor = mysql.connection.cursor()
+#
+#     # retreiving data from database
+#     myCursor.execute('''SELECT * FROM trade.wp_grupa''')
+#     category = myCursor.fetchall()
+#
+#     return render_template('categories.html', data = category)
 
 
 #error handler

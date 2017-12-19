@@ -1,17 +1,18 @@
-import os
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 #define flask app:
 app = Flask(__name__)
+
+app.config.from_object('config')
 '''config database'''
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:Bene1979@127.0.0.1/trade'
 db = SQLAlchemy(app)
-'''config secret key'''
-app.secret_key = os.urandom(24)
+
 '''app main models and views'''
-import application.models
-import application.views
+from application import models
+from application import views
 
 #config users blueprint app and flask_login:
 from flask_login import LoginManager

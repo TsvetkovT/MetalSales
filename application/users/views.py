@@ -1,18 +1,19 @@
 from flask import Blueprint, flash, render_template,url_for,redirect,g
 from flask_login import login_user, logout_user, current_user
 
-from wtforms import Form, StringField, PasswordField
+from flask_wtf import FlaskForm
+from wtforms import Form,StringField,PasswordField
 from wtforms.validators import DataRequired, Length
 
 
 from application.users.models import User
-#from application import flask_bcrypt
+from flask_bcrypt import Bcrypt
 
 users = Blueprint('users',__name__,template_folder='templates')
 
 
 
-class LoginForm(Form):
+class LoginForm(FlaskForm):
     username = StringField('username', validators=[DataRequired()])
     password = PasswordField('password', validators=[DataRequired(), Length(min=6)])
 
@@ -35,18 +36,30 @@ def login():
 # for the LoginForm, but we avoid that for the moment, here.
 # ###########################################################
 
-    if current_user.is_authenticated():
-        return redirect(url_for('categories'))
-    form = LoginForm()
+    if current_user.is_authenticated:
+        return redirect(url_for('/'))
 
-    if form.validate_on_submit():
-        user = users.query.filter_by(user_login = form.username.data).first()
+        form = LoginForm()
 
-        if not user:
-            flash('No such user')
-            return render_template('/login.html',form=form)
+        if form.validate_on_submit():
+            user = User.query.filter_by(user_login = form.username.data).first()
 
-        if (not flask_bcrypt.check_password_hash(user.password, form.password.data)):
-            flash('Invalid password')
-            return render_template('/login.html', form=form)
+            if not user:
+                flash('No such user')
+                return render_template('users/login.html',form=form)
+
+            if (not Bcrypt.check_password_hash(user.password, form.password.data)):
+                flash('Invalid password')
+                return render_template('users/login.html', form=form)
+            login_user(user, remember=True)
+            flash("Success! You're logged in now.")
+            return redirect(url_for('/'))
+        return render_template('users/login.html',form=form)
+
+
+
+@users.route('/logout',methods=['GET'])
+def logout():
+    logout_user()
+    return redirect(url_for('about'))
 
