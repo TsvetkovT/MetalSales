@@ -4,7 +4,7 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from flask_bcrypt import generate_password_hash
 
 
-class users(db.Model):
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_email = db.Column(db.String(255), unique=True)
     user_login = db.Column(db.String(60))
