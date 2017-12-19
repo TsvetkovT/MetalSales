@@ -1,65 +1,21 @@
 from flask import Blueprint, flash, render_template,url_for,redirect,g
+from application import app
+from .forms import LoginForm
+
 from flask_login import login_user, logout_user, current_user
 
 from flask_wtf import FlaskForm
 from wtforms import Form,StringField,PasswordField
 from wtforms.validators import DataRequired, Length
+users = Blueprint('users',__name__,template_folder='templates')
 
 
 from application.users.models import User
 from flask_bcrypt import Bcrypt
 
-users = Blueprint('users',__name__,template_folder='templates')
 
 
-
-class LoginForm(FlaskForm):
-    username = StringField('username', validators=[DataRequired()])
-    password = PasswordField('password', validators=[DataRequired(), Length(min=6)])
-
-
-@users.route('/login',methods=['GET','POST'])
+@users.route('/login',methods=['GET',"POST"])
 def login():
-#     Basic user login functionality.
-#
-#     If the user is already logged in, we
-# redirect the user to the default snaps index page.
-#     If the user is not already logged in and we have
-# form data that was submitted via POST request, we
-# call the validate_on_submit() method of the Flask-WTF
-#     Form object to ensure that the POST data matches what
-# we are expecting. If the data validates, we login the
-# user given the form data that was provided and then
-# redirect them to the default snaps index page.
-#     Note: Some of this may be simplified by moving the actual User
-# loading and password checking into a custom Flask-WTF validator
-# for the LoginForm, but we avoid that for the moment, here.
-# ###########################################################
-
-    if current_user.is_authenticated:
-        return redirect(url_for('/'))
-
-        form = LoginForm()
-
-        if form.validate_on_submit():
-            user = User.query.filter_by(user_login = form.username.data).first()
-
-            if not user:
-                flash('No such user')
-                return render_template('users/login.html',form=form)
-
-            if (not Bcrypt.check_password_hash(user.password, form.password.data)):
-                flash('Invalid password')
-                return render_template('users/login.html', form=form)
-            login_user(user, remember=True)
-            flash("Success! You're logged in now.")
-            return redirect(url_for('/'))
-        return render_template('users/login.html',form=form)
-
-
-
-@users.route('/logout',methods=['GET'])
-def logout():
-    logout_user()
-    return redirect(url_for('about'))
-
+    form = LoginForm()
+    return render_template('login.html',form=form)

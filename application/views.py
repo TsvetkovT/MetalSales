@@ -1,16 +1,11 @@
-from flask import render_template,request
+from flask import render_template,redirect
 from application import app
 
 
 #define routes
-@app.route('/login', methods=['GET','POST'])
+@app.route('/login')
 def login():
-    if request.method == 'POST':
-        return render_template('login.html')
-        pass
-    else:
-        return render_template('login.html')
-        pass
+    return redirect('users/login')
 
 
 @app.route('/')
