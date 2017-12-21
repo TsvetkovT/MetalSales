@@ -1,9 +1,9 @@
 import os
 from flask import Flask, Blueprint
 from flask_sqlalchemy import SQLAlchemy
-
+from .users.views import users_blueprint
 #define flask app:
-app = Flask(__name__)
+app = Flask(__name__,instance_relative_config=True)
 
 app.config.from_pyfile('config.py')
 '''config database'''
@@ -11,17 +11,16 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:Bene1979@127.0.0.1/trade'
 db = SQLAlchemy(app)
 
 '''app main models and views'''
-from application import models
-from application import views
+from . import models
+from . import views
 
 #config users blueprint app and flask_login:
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
-from application.users.views import users
+
 #from application.users import models as user_models
 #users = Blueprint('users',__name__,template_folder='templates')
-app.register_blueprint(users, url_prefix ='/users')
-
+app.register_blueprint(users_blueprint, url_prefix ='/users')
 
 #Config Login Manager:
 login_manager = LoginManager()
