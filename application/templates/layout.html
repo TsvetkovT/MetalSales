@@ -10,26 +10,40 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
 
-
 </head>
 <body>
 <header>
-    	<div class="container-fluid">
-			<div class="row zsx pull-center">
-				<div class="align-right col-lg-12 animated lightSpeedIn">
-					<p class="vcenter">
-					<h1> TheMetalSalesWebsite</h1>
-					<h3>Everything at the best price</h3>
-					</p>
-				</div>
-			</div>
-		</div>
+    <div class="container-fluid">
+        <div class="row zsx pull-center">
+            <div class="align-right col-lg-12 animated lightSpeedIn">
+                <p class="vcenter">
+                <h1> TheMetalSalesWebsite</h1>
+                <h3>Everything at the best price</h3>
+                </p>
+            </div>
+        </div>
+    </div>
 </header>
 
-    {% include 'includes/_navbar.html' %}
-    <div class="container">
-        {% block body %} {% endblock %}
-    </div>
+{% include 'includes/_navbar.html' %}
+<div class="container">
+    {% block body %} {% endblock %}
+</div>
+
+{#The following code is providing the display of messages#}
+
+<hr>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }} </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+{% block content %}{% endblock %}
+
 <link rel="script" href={{ url_for('static', filename='js/bootstrap.js') }}">
 </body>
 </html>
