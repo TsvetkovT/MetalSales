@@ -1,7 +1,7 @@
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_openid import OpenID
+#from flask_openid import OpenID
 
 
 #Import login manager
@@ -24,7 +24,7 @@ from . import models, views
 #Config Login Manager:
 login_manager = LoginManager()
 login_manager.init_app(app)
-oid = OpenID(app,os.path.join(basedir,'tmp'))
+#oid = OpenID(app,os.path.join(basedir,'tmp'))
 '''here we declare var with the same name as ext'''
 flask_bcrypt = Bcrypt(app)
 
@@ -36,3 +36,7 @@ from .users.models import User
 #config users blueprint app:
 app.register_blueprint(users_blueprint, url_prefix ='/users')
 
+# if __name__ == '__main__':
+#     # Bind to PORT if defined, otherwise default to 5000.
+#     port = int(os.environ.get('PORT', 5000))
+#     app.run(host='0.0.0.0', port=port)
