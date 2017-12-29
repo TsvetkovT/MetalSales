@@ -13,8 +13,11 @@
 -- Dumping structure for table  trade.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL,
-  `user_login` varchar(50) NOT NULL,
+  `user_email` varchar(255) NOT NULL,
+  `user_login` varchar(60) NOT NULL,
+  `display_name` varchar(50) NOT NULL,
   `user_pass` varchar(300) NOT NULL,
+  `created_on` varchar(300) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

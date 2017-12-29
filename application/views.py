@@ -3,9 +3,9 @@ from application import app
 
 
 #define routes
-@app.route('/login')
+@app.route('/signin')
 def login():
-    return redirect('users/login')
+    return redirect('users/signin/')
 
 
 @app.route('/')

@@ -1,0 +1,89 @@
+{% extends 'layout.html' %}
+{% import 'wtf.html' as wtf %}
+{% block body %}
+
+    <div class="container">
+        <div class="row main">
+            <div class="main-login main-center">
+
+
+                <form action="/users/signin/" method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        <label for="name" class="cols-sm-2 control-label">Your Name</label>
+                        {#                        {% for message in form.display_name.errors %}#}
+                        {#                            <div class="flash">{{ message }}</div>#}
+                        {#                        {% endfor %}#}
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                {{ wtf.form_field(form.display_name, class="form-control", placeholder="Enter your Name") }}
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+
+                        {#                        {%        for message in form.email.errors %}#}
+                        {#                            <div class="flash">{{ message }}</div>#}
+                        {#                        {% endfor %}#}
+                        <label for="name" class="cols-sm-2 control-label">Your Email</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                                {{ wtf.form_field(form.email, class="form-control", placeholder="Enter your Email") }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username" class="cols-sm-2 control-label">Username</label>
+                        {#                        {% for message in form.username.errors %}#}
+                        {#                            <div class="flash">{{ message }}</div>#}
+                        {#                        {% endfor %}#}
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                                {{ wtf.form_field(form.username, placeholder="Enter your Username", class="form-control") }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="cols-sm-2 control-label">Password</label>
+                        {#                        {% for message in form.password.errors %}#}
+                        {#                            <div class="flash">{{ message }}</div>#}
+                        {#                        {% endfor %}#}
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-lock fa-lg"
+                                                                   aria-hidden="true"></i></span>
+                                {{ wtf.form_field(form.password, placeholder="Enter your Password", class="form-control") }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-lock fa-lg"
+                                                                   aria-hidden="true"></i></span>
+                                {{ wtf.form_field(form.confirm, placeholder="Confirm your Password", class="form-control" )}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group ">
+
+                        <input type="submit" class="btn btn-primary btn-lg btn-block login-button">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
