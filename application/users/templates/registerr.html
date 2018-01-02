@@ -1,0 +1,206 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+
+    <script src={{ url_for('static', filename='js/jQvalidation/lib/jquery.js') }}></script>
+    <script src={{ url_for('static', filename='js/jQvalidation/lib/jquery.mockjax-2.2.1.js') }}></script>
+    <script src={{ url_for('static', filename='js/jQvalidation/lib/jquery.mockjax.js') }}></script>
+    <script src={{ url_for('static', filename='js/jQvalidation/dist/jquery.validate.js') }}></script>
+    <script src={{ url_for('static', filename='js/jQvalidation/dist/additional-methods.js') }}></script>
+
+
+<div class="row main">
+            <div class="main-login main-center">
+
+
+                <form action="/users/signin/" method="POST" id="regForm">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        <label for="name" class="cols-sm-2 control-label">Your Name</label>
+                        {#                        {% for message in form.display_name.errors %}#}
+                        {#                            <div class="flash">{{ message }}</div>#}
+                        {#                        {% endfor %}#}
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                {{ (form.display_name( class="form-control", placeholder="Enter your Name")) }}
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+
+                        {#                        {%        for message in form.email.errors %}#}
+                        {#                            <div class="flash">{{ message }}</div>#}
+                        {#                        {% endfor %}#}
+                        <label for="name" class="cols-sm-2 control-label">Your Email</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                                {{ (form.email( class="form-control", placeholder="Enter your Email")) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username" class="cols-sm-2 control-label">Username</label>
+                        {#                        {% for message in form.username.errors %}#}
+                        {#                            <div class="flash">{{ message }}</div>#}
+                        {#                        {% endfor %}#}
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                                {{ (form.username(placeholder="Enter your Username", class="form-control")) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="cols-sm-2 control-label">Password</label>
+                        {#                        {% for message in form.password.errors %}#}
+                        {#                            <div class="flash">{{ message }}</div>#}
+                        {#                        {% endfor %}#}
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-lock fa-lg"
+                                                                   aria-hidden="true"></i></span>
+                                {{ (form.password(placeholder="Enter your Password", class="form-control")) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-lock fa-lg"
+                                                                   aria-hidden="true"></i></span>
+                                {{ (form.confirm(placeholder="Confirm your Password", class="form-control" ))}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group ">
+
+                        <input type="submit" class="btn btn-primary btn-lg btn-block login-button">
+                    </div>
+
+                </form>
+                <script>
+$(document).ready(function() {
+		$.mockjax({
+			url: "emails.action",
+			response: function(settings) {
+				var email = settings.data.email,
+					emails = ["glen@marketo.com", "george@bush.gov", "me@god.com", "aboutface@cooper.com", "steam@valve.com", "bill@gates.com"];
+				this.responseText = "true";
+				if ($.inArray(email, emails) !== -1) {
+					this.responseText = "false";
+				}
+			},
+			responseTime: 500
+		});
+
+		$.mockjax({
+			url: "users.action",
+			response: function(settings) {
+				var user = settings.data.username,
+					users = ["asdf", "Peter", "Peter2", "George"];
+				this.responseText = "true";
+				if ($.inArray(user, users) !== -1) {
+					this.responseText = "false";
+				}
+			},
+			responseTime: 500
+		});
+
+		// validate signup form on keyup and submit
+		$("#regForm").validate({
+{#		    errorElement: 'div',#}
+		    errorClass: 'help-block',
+
+			rules: {
+				display_name: "required",
+
+				username: {
+					required: true,
+					minlength: 2,
+					remote: "users.action"
+				},
+				password: {
+					required: true,
+					minlength: 5
+				},
+				confirm: {
+					required: true,
+					minlength: 5,
+					equalTo: "#password"
+				},
+				email: {
+					required: true,
+					email: true,
+					remote: "emails.action"
+				}
+			},
+			messages: {
+				display_name: "Enter your name",
+				username: {
+					required: "Enter a username",
+					minlength: jQuery.validator.format("Enter at least {0} characters"),
+					//remote: jQuery.validator.format("{0} is already in use")
+				},
+				password: {
+					required: "Provide a password",
+					minlength: jQuery.validator.format("Enter at least {0} characters")
+				},
+				confirm: {
+					required: "Repeat your password",
+					minlength: jQuery.validator.format("Enter at least {0} characters"),
+					equalTo: "Enter the same password as above"
+				},
+				email: {
+					required: "Please enter a valid email address",
+					minlength: "Please enter a valid email address",
+					//remote: jQuery.validator.format("{0} is already in use")
+				}
+			},
+			// the errorPlacement has to take the table layout into account
+			errorPlacement: function(error, element) {
+				if (element.is(":radio"))
+					error.appendTo(element.parent().next().next());
+				else if (element.is(":checkbox"))
+					error.appendTo(element.next());
+				else
+					error.appendTo(element.parent().next());
+			},
+			// specifying a submitHandler prevents the default submit, good for the demo
+			submitHandler: function() {
+				alert("submitted!");
+			},
+			// set this class to error-labels to indicate valid fields
+			success: function(label) {
+				// set &nbsp; as text for IE
+				label.html("&nbsp;").addClass("checked");
+			},
+			highlight: function(element, errorClass) {
+				$(element).parent().next().find("." + errorClass).removeClass("checked");
+			}
+		});
+
+		// propose username by combining first- and lastname
+{#		$("#username").focus(function() {#}
+{#			var firstname = $("#firstname").val();#}
+{#			var lastname = $("#lastname").val();#}
+{#			if (firstname && lastname && !this.value) {#}
+{#				this.value = (firstname + "." + lastname).toLowerCase();#}
+{#			}#}
+{#		});#}
+	});
+
+    </script>
+
+            </div>
+</div>
+{% endblock %}

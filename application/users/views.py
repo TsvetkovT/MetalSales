@@ -37,7 +37,7 @@ def register():
         flash('Thank you for registering.', 'success')
         return redirect(url_for("login"))
 
-    return render_template('testRegister.html', form=form)
+    return render_template('registerr.html', form=form)
 
 
 # @oid.after_login
